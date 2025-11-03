@@ -18,7 +18,7 @@ export class LoginService {
   //   { email: 'ventas@gmail.com', password: 'ventas123', role: 'ventas' }
   // ];
 
-  private apiUrl = 'http://localhost:3000/api/login';
+  private apiUrl = 'https://etesla-api-vercel.onrender.com/api/login';
 
   constructor(private http: HttpClient) { }
 

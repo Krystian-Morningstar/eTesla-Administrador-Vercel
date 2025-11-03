@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AccesosService {
-  private apiUrl = 'http://localhost:3000/api/usuarios';
+  private apiUrl = 'https://etesla-api-vercel.onrender.com/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
@@ -16,32 +16,32 @@ export class AccesosService {
   }
 
   getRoles(): Observable<any[]> {
-    const url = 'http://localhost:3000/api/usuarios/roles';
+    const url = 'https://etesla-api-vercel.onrender.com/api/usuarios/roles';
     return this.http.get<any[]>(url);
   }
 
   getSucursales(): Observable<any[]> {
-    const url = 'http://localhost:3000/api/usuarios/sucursales';
+    const url = 'https://etesla-api-vercel.onrender.com/api/usuarios/sucursales';
     return this.http.get<any[]>(url);
   }
 
   crearUsuario(usuario: any): Observable<any> {
-    const url = 'http://localhost:3000/api/usuarios/nuevo';
+    const url = 'https://etesla-api-vercel.onrender.com/api/usuarios/nuevo';
     return this.http.post<any>(url, usuario);
   }
 
   SoftDeleteUsuario(id: number): Observable<any> {
-    const url = `http://localhost:3000/api/usuarios/${id}`;
+    const url = `https://etesla-api-vercel.onrender.com/api/usuarios/${id}`;
     return this.http.delete<any>(url);
   }
 
   reactivarUsuario(id: number): Observable<any> {
-    const url = `http://localhost:3000/api/usuarios/${id}/reactivar`;
+    const url = `https://etesla-api-vercel.onrender.com/api/usuarios/${id}/reactivar`;
     return this.http.patch<any>(url, {});
   }
 
   actualizarUsuario(id: number, usuario: any): Observable<any> {
-    const url = `http://localhost:3000/api/usuarios/${id}`;
+    const url = `https://etesla-api-vercel.onrender.com/api/usuarios/${id}`;
     return this.http.put<any>(url, usuario);
   }
 }

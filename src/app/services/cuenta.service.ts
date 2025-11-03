@@ -8,7 +8,7 @@ import { Usuario } from '../model/usuario.model';
   providedIn: 'root',
 })
 export class CuentaService {
-  private apiUrl = 'http://localhost:3000/api/usuario';
+  private apiUrl = 'https://etesla-api-vercel.onrender.com/api/usuario';
   // private userProfile = {
   //   nombre: 'Rodrigo Castro',
   //   rol: 'Administrador',

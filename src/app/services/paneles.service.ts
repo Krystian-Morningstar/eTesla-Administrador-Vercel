@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class PanelesService {
-    private apiUrl = 'http://localhost:3000/api/paneles';
+    private apiUrl = 'https://etesla-api-vercel.onrender.com/api/paneles';
 
     constructor(private http: HttpClient) { }
 
@@ -15,32 +15,32 @@ export class PanelesService {
     }
 
     crearPanel(panel: any): Observable<any> {
-        const url = 'http://localhost:3000/api/paneles/nuevo';
+        const url = 'https://etesla-api-vercel.onrender.com/api/paneles/nuevo';
         return this.http.post<any>(url, panel);
     }
 
     getOrigenes(): Observable<any[]> {
-        const url = 'http://localhost:3000/api/paneles/origen';
+        const url = 'https://etesla-api-vercel.onrender.com/api/paneles/origen';
         return this.http.get<any[]>(url);
     }
 
     getMarcas(): Observable<any[]> {
-        const url = 'http://localhost:3000/api/paneles/marca';
+        const url = 'https://etesla-api-vercel.onrender.com/api/paneles/marca';
         return this.http.get<any[]>(url);
     }
 
     softDeletePanel(id: number): Observable<any> {
-        const url = `http://localhost:3000/api/paneles/${id}`;
+        const url = `https://etesla-api-vercel.onrender.com/api/paneles/${id}`;
         return this.http.delete<any>(url);
     }
 
     reactivarPanel(id: number): Observable<any> {
-        const url = `http://localhost:3000/api/paneles/${id}/reactivar`;
+        const url = `https://etesla-api-vercel.onrender.com/api/paneles/${id}/reactivar`;
         return this.http.patch<any>(url, {});
     }
 
     actualizarPanel(id: number, panel: any): Observable<any> {
-        const url = `http://localhost:3000/api/paneles/${id}`;
+        const url = `https://etesla-api-vercel.onrender.com/api/paneles/${id}`;
         return this.http.put<any>(url, panel);
     }
 }
