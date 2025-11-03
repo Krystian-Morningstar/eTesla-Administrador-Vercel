@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador eTesla</title>
+  <link rel="stylesheet" href="estructuras.component.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <app-header></app-header>
+    <app-nav-bar></app-nav-bar>
+
+    <!-- Contenedor principal para las estructuras -->
+    <main class="estructuras-container">
+      <h2>Estructuras</h2>
+
+      <!-- Botones para cambiar vista y agregar estructura -->
+      <div class="view-controls">
+        <button (click)="toggleView()" class="toggle-view-btn">
+          Cambiar a {{ isListView ? 'Mosaico' : 'Lista' }}
+        </button>
+
+        <!-- <select>
+          <option value="">Selecciona una Marca</option>
+          <option value="">[Marca de la Estructura]</option>
+          <option value="">[Marca de la Estructura]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select>
+
+        <select>
+          <option value="">Selecciona un Origen</option>
+          <option value="">[Origen de la Estructura]</option>
+          <option value="">[Origen de la Estructura]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select> -->
+
+        <button (click)="openModal()" class="add-estructura-btn">+ Agregar Estructura</button>
+      </div>
+
+      <!-- Vista de lista o mosaico -->
+      <div *ngIf="isListView" class="list-view">
+        <div *ngFor="let estructura of estructuras" class="list-item card">
+          <img [src]="estructura.image" alt="Estructura Image" class="estructura-image">
+          <div class="panel-info">
+            <h3>{{ estructura.nombre }}</h3>
+            <p><strong>Precio:</strong> {{ estructura.precio | currency }}</p>
+            <div class="card-buttons">
+              <button (click)="editEstructura(estructura)" class="edit-btn">Editar</button>
+              <button *ngIf="estructura.activo" (click)="deleteEstructura(estructura)" class="delete-btn">Eliminar</button>
+              <button *ngIf="!estructura.activo" (click)="reactivarEstructura(estructura)" class="reactivate-btn">Reactivar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isListView" class="mosaic-view">
+        <div *ngFor="let estructura of estructuras" class="card mosaic-item">
+          <img [src]="estructura.image" alt="Estructura Image" class="estructura-image">
+          <h3>{{ estructura.nombre }}</h3>
+          <p><strong>Precio:</strong> {{ estructura.precio | currency }}</p>
+          <div class="card-buttons">
+            <button *ngIf="estructura.activo" (click)="deleteEstructura(estructura)" class="delete-btn">Eliminar</button>
+            <button *ngIf="!estructura.activo" (click)="reactivarEstructura(estructura)" class="reactivate-btn">Reactivar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal para agregar nueva estructura -->
+    <div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>{{ editingEstructuraId ? 'Editar Estructura' : 'Agregar Nueva Estructura' }}</h2>
+        <form (ngSubmit)="addEstructura()" class="add-estructura-form">
+          <div class="form-column">
+              <label>Nombre: <input [(ngModel)]="newEstructura.nombre" name="nombre" required></label>
+              <label>Marca:
+                <select [(ngModel)]="newEstructura.marca" name="marca" required>
+                <option value="">Selecciona una marca</option>
+                <option *ngFor="let marca of marcas" [value]="marca.id_marca_estructura">{{ marca.nombre_marca }}</option>
+              </select>
+            </label>
+              <label>Precio: <input [(ngModel)]="newEstructura.precio" name="precio" type="number" required></label>
+              <label>Garantía: <input [(ngModel)]="newEstructura.garantia" name="garantia" required></label>
+          </div>
+          <div class="form-column">
+              <label>Origen:
+                <select [(ngModel)]="newEstructura.origen" name="origen" required>
+                <option value="">Selecciona un origen</option>
+                <option *ngFor="let origen of origenes" [value]="origen.id_origen_estructura">{{ origen.nombre_origen }}</option>
+              </select>
+            </label>
+            <label>Imagen: <input type="file" (change)="onFileChange($event)"></label>
+            <label>Ficha Técnica: <input type="file" (change)="onFileChange($event)"></label>
+            <div class="modal-buttons">
+              <button type="submit" class="submit-btn">{{ editingEstructuraId ? 'Guardar cambios' : 'Agregar' }}</button>
+              <button type="button" (click)="closeModal()" class="cancel-btn">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador eTesla</title>
+  <link rel="stylesheet" href="inversores.component.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <app-header></app-header>
+    <app-nav-bar></app-nav-bar>
+
+    <!-- Contenedor principal para los inversores -->
+    <main class="inversores-container">
+      <h2>Inversores</h2>
+
+      <!-- Botones para cambiar vista y agregar inversor -->
+      <div class="view-controls">
+        <button (click)="toggleView()" class="toggle-view-btn">
+          Cambiar a {{ isListView ? 'Mosaico' : 'Lista' }}
+        </button>
+
+        <!-- <select>
+          <option value="">Selecciona una Marca</option>
+          <option value="">[Marca del Inversor]</option>
+          <option value="">[Marca del Inversor]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select>
+
+        <select>
+          <option value="">Selecciona un Origen</option>
+          <option value="">[Origen del Inversor]</option>
+          <option value="">[Origen del Inversor]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select>
+
+        <select>
+          <option value="">Selecciona una Potencia</option>
+          <option value="">[Potencia del Inversor]</option>
+          <option value="">[Potencia del Inversor]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select> -->
+
+        <button (click)="openModal()" class="add-inversor-btn">+ Agregar Inversor</button>
+      </div>
+
+      <!-- Vista de lista o mosaico -->
+      <div *ngIf="isListView" class="list-view">
+        <div *ngFor="let inversor of inversores" class="list-item card">
+          <img [src]="inversor.image" alt="Inversor Image" class="inversor-image">
+          <div class="inversor-info">
+            <h3>{{ inversor.nombre }}</h3>
+            <p><strong>Potencia:</strong> {{ inversor.potencia }} W</p>
+            <p><strong>Precio:</strong> {{ inversor.precio | currency }}</p>
+            <div class="card-buttons">
+              <button (click)="editInversor(inversor)" class="edit-btn">Editar</button>
+              <button *ngIf="inversor.activo" (click)="deleteInversor(inversor)" class="delete-btn">Eliminar</button>
+              <button *ngIf="!inversor.activo" (click)="reactivarInversor(inversor)" class="reactivate-btn">Reactivar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isListView" class="mosaic-view">
+        <div *ngFor="let inversor of inversores" class="card mosaic-item">
+          <img [src]="inversor.image" alt="Inversor Image" class="inversor-image">
+          <h3>{{ inversor.nombre }}</h3>
+          <p><strong>Potencia:</strong> {{ inversor.potencia }} W</p>
+          <p><strong>Precio:</strong> {{ inversor.precio | currency }}</p>
+          <div class="card-buttons">
+            <button (click)="editInversor(inversor)" class="edit-btn">Editar</button>
+            <button *ngIf="inversor.activo" (click)="deleteInversor(inversor)" class="delete-btn">Eliminar</button>
+            <button *ngIf="!inversor.activo" (click)="reactivarInversor(inversor)" class="reactivate-btn">Reactivar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal para agregar nuevo inversor -->
+    <div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>{{ editingInversorId ? 'Editar Inversor' : 'Agregar Nuevo Inversor' }}</h2>
+        <form (ngSubmit)="addInversor()" class="add-inversor-form">
+          <div class="form-column">
+            <label>Nombre: <input [(ngModel)]="newInversor.nombre" name="nombre"required></label>
+              <label>Marca:
+                <select [(ngModel)]="newInversor.marca" name="marca" required>
+                  <option value="">Selecciona una marca</option>
+                  <option *ngFor="let marca of marcas" [value]="marca.id_marca_inversor">{{ marca.nombre_marca }}</option>
+                </select>
+              </label>
+            <label>Potencia: <input [(ngModel)]="newInversor.potencia" name="potencia" type="number" required></label>
+            <label>Precio: <input [(ngModel)]="newInversor.precio" name="precio" type="number" required></label>
+            <label>Garantía: <input [(ngModel)]="newInversor.garantia" name="garantia" required></label>
+              <label>Origen:
+                <select [(ngModel)]="newInversor.origen" name="origen" required>
+                  <option value="">Selecciona un origen</option>
+                  <option *ngFor="let origen of origenes" [value]="origen.id_origen_inversor">{{ origen.nombre_origen }}</option>
+                </select>
+              </label>
+            <label>PMIN: <input [(ngModel)]="newInversor.pmin" name="pmin" required></label>
+          </div>
+          <div class="form-column">
+            <label>PMAX: <input [(ngModel)]="newInversor.pmax" name="pmax" required></label>
+            <label>VMIN: <input [(ngModel)]="newInversor.vmin" name="vmin" required></label>
+            <label>VMAX: <input [(ngModel)]="newInversor.vmax" name="vmax" required></label>
+            <label>ISC: <input [(ngModel)]="newInversor.isc" name="isc" required></label>
+            <label>Imagen: <input type="file" (change)="onFileChange($event)"></label>
+            <label>Ficha Técnica: <input type="file" (change)="onFileChange($event)"></label>
+            <div class="modal-buttons">
+              <button type="submit" class="submit-btn">{{ editingInversorId ? 'Guardar cambios' : 'Agregar' }}</button>
+              <button type="button" (click)="closeModal()" class="cancel-btn">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</body>
+
+</html>

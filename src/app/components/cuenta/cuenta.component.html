@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador eTesla</title>
+  <link rel="stylesheet" href="cuenta.component.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <app-header></app-header>
+    <app-nav-bar></app-nav-bar>
+
+    <div class="account-container">
+
+      <div class="section">
+        <h3>Información Básica</h3>
+        <div class="info-item">
+          <label>Nombre Completo:</label>
+          <span>{{ userProfile.nombre }}</span>
+        </div>
+        <div class="info-item">
+          <label>Rol:</label>
+          <span>{{ userProfile.rol }}</span>
+        </div>
+        <div class="info-item">
+          <label>Sucursal:</label>
+          <span>{{ userProfile.direccion }}</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Información de Contacto</h3>
+        <div class="info-item">
+          <label>Teléfono:</label>
+          <span>{{ userProfile.telefono }}</span>
+        </div>
+        <div class="info-item">
+          <label>Correo Electrónico:</label>
+          <span>{{ userProfile.correo }}</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Seguridad</h3>
+        <!-- <button (click)="cambiarContrasena()" class="change-password-btn">
+          Cambiar Contraseña
+        </button>
+        <button (click)="editarPerfil()" class="change-perfil-btn">
+          Editar Perfil
+        </button> -->
+        <label> Para poder realizar el cambio de contraseña o actualizacion de informacion, favor de desplazarse al apartado "Administrar Accesos"</label>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</body>
+
+</html>

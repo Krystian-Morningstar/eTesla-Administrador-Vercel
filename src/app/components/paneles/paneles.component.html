@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador eTesla</title>
+  <link rel="stylesheet" href="paneles.component.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <app-header></app-header>
+    <app-nav-bar></app-nav-bar>
+
+    <!-- Contenedor principal para los paneles -->
+    <main class="paneles-container">
+      <h2>Paneles Solares</h2>
+
+      <!-- Botones para cambiar vista y agregar panel -->
+      <div class="view-controls">
+        <button (click)="toggleView()" class="toggle-view-btn">
+          Cambiar a {{ isListView ? 'Mosaico' : 'Lista' }}
+        </button>
+
+        <!-- <select>
+          <option value="">Selecciona una Marca</option>
+          <option value="">[Marca del panel]</option>
+          <option value="">[Marca del panel]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select>
+
+        <select>
+          <option value="">Selecciona un Origen</option>
+          <option value="">[Origen del panel]</option>
+          <option value="">[Origen del panel]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select>
+
+        <select>
+          <option value="">Selecciona una Potencia</option>
+          <option value="">[Potencia del panel]</option>
+          <option value="">[Potencia del panel]</option>
+          <option *ngFor="let panel " [value]="panel">{{ panel }}</option>
+        </select> -->
+        <button (click)="openModal()" class="add-panel-btn">+ Agregar Panel</button>
+      </div>
+
+      <!-- Vista de lista o mosaico -->
+      <div *ngIf="isListView" class="list-view">
+        <div *ngFor="let panel of paneles" class="list-item card">
+          <img [src]="panel.image" alt="Panel Image" class="panel-image">
+          <div class="panel-info">
+            <h3>{{ panel.nombre }}</h3>
+            <p><strong>Potencia:</strong> {{ panel.potencia }} W</p>
+            <p><strong>Precio:</strong> {{ panel.precio | currency }}</p>
+            <div class="card-buttons">
+              <button (click)="editPanel(panel)" class="edit-btn">Editar</button>
+              <button *ngIf="panel.activo" (click)="deletePanel(panel)" class="delete-btn">Eliminar</button>
+              <button *ngIf="!panel.activo" (click)="reactivarPanel(panel)" class="reactivate-btn">Reactivar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isListView" class="mosaic-view">
+        <div *ngFor="let panel of paneles" class="card mosaic-item">
+          <img [src]="panel.image" alt="Panel Image" class="panel-image">
+          <h3>{{ panel.nombre }}</h3>
+          <p><strong>Potencia:</strong> {{ panel.potencia }} W</p>
+          <p><strong>Precio:</strong> {{ panel.precio | currency }}</p>
+          <div class="card-buttons">
+            <button (click)="editPanel(panel)" class="edit-btn">Editar</button>
+            <button *ngIf="panel.activo" (click)="deletePanel(panel)" class="delete-btn">Eliminar</button>
+            <button *ngIf="!panel.activo" (click)="reactivarPanel(panel)" class="reactivate-btn">Reactivar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal para agregar nuevo panel -->
+    <div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h2>{{ editingPanelId ? 'Editar Panel' : 'Agregar Nuevo Panel' }}</h2>
+        <form (ngSubmit)="addPanel()" class="add-panel-form">
+          <div class="form-column">
+            <label>Nombre: <input [(ngModel)]="newPanel.nombre" name="nombre" required></label>
+            <label>
+              Marca:
+              <select [(ngModel)]="newPanel.marca" name="marca" required>
+                <option value="">Selecciona una Marca</option>
+                <option *ngFor="let marca of marcas" [value]="marca.id_marca_panel">{{ marca.nombre_marca }}</option>
+              </select>
+            </label>
+            <label>Potencia: <input [(ngModel)]="newPanel.potencia" name="potencia" type="number" required></label>
+            <label>Precio: <input [(ngModel)]="newPanel.precio" name="precio" type="number" required></label>
+            <label>Garantía: <input [(ngModel)]="newPanel.garantia" name="garantia" required></label>
+            <label>
+              Origen:
+              <select [(ngModel)]="newPanel.origen" name="origen" required>
+                <option value="">Selecciona un Origen</option>
+                <option *ngFor="let origen of origenes" [value]="origen.id_origen_panel">{{ origen.nombre_origen }}</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-column">
+            <label>ISC: <input [(ngModel)]="newPanel.isc" name="isc" required></label>
+            <label>VOC: <input [(ngModel)]="newPanel.voc" name="voc" required></label>
+            <label>VMP: <input [(ngModel)]="newPanel.vmp" name="vmp" required></label>
+            <label>Imagen: <input type="file" (change)="onFileChange($event)"></label>
+            <label>Ficha Técnica: <input type="file" (change)="onFileChange($event)"></label>
+            <div class="modal-buttons">
+              <button type="submit" class="submit-btn">{{ editingPanelId ? 'Guardar cambios' : 'Agregar' }}</button>
+              <button type="button" (click)="closeModal()" class="cancel-btn">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</body>
+
+</html>

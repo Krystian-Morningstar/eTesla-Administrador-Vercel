@@ -1,0 +1,295 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.form-table-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+  /* Espacio entre el formulario y la tabla */
+  flex: 1;
+}
+
+.form-container {
+  flex: 1;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #ffffff8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.mt-2 {
+  margin-top: 15px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  color: #333;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #1a9b00;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #357abd;
+}
+
+/* Table styles */
+
+.list-container {
+  flex: 1;
+  max-width: max-content;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff8a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  font-family: Arial, sans-serif;
+  height: 500px;
+  /* Establecer una altura fija para la tabla */
+  overflow-y: auto;
+  /* Activa el scroll vertical si el contenido excede la altura */
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.inactive-row {
+  background-color: #e0e0e0 !important;
+}
+
+/* Estilos para los botones de acción */
+.action-btn {
+  padding: 6px 12px;
+  margin: 2px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+  opacity: 0.8;
+}
+
+/* Estilo para el botón de "Editar" */
+
+.edit-btn {
+  background-color: #4CAF50 !important;
+  /* Verde para editar */
+  color: white !important;
+}
+
+.delete-btn {
+  background-color: #e74c3c !important;
+  /* Rojo para eliminar */
+  color: white !important;
+}
+
+.reactivate-btn {
+  background-color: #f39c12 !important;
+  /* Naranja para reactivar */
+  color: white !important;
+}
+
+
+/* Cambios para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-table-container {
+    flex-direction: column;
+    /* Coloca el formulario y la tabla en columna */
+    margin-left: 0;
+    /* Elimina el margen izquierdo */
+    margin-right: 0;
+    /* Elimina el margen derecho */
+  }
+
+  .form-container,
+  .list-container {
+    max-width: 100%;
+    /* Asegura que ambos contenedores ocupen todo el ancho */
+    margin: 0 auto;
+    /* Centra ambos contenedores */
+  }
+
+  .form-container {
+    margin-bottom: 20px;
+    /* Espacio entre el formulario y la tabla */
+  }
+
+  /* Contenedor de la tabla, con scroll */
+  .list-container {
+    width: 100%;
+    /* Asegura que ocupe el 100% del ancho */
+    max-height: 300px;
+    /* Define una altura máxima para la tabla */
+    overflow-y: auto;
+    /* Permite el scroll vertical */
+    padding-right: 10px;
+    /* Espacio extra para el scroll */
+    box-sizing: border-box;
+    /* Asegura que el padding no afecte el tamaño total */
+  }
+
+  .user-table {
+    width: 100%;
+    /* La tabla ocupa el 100% del contenedor */
+    border-collapse: collapse;
+    /* Elimina el espacio entre celdas */
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  /* Ajustes adicionales para las celdas en pantallas pequeñas */
+  .user-table th {
+    font-size: 16px;
+    /* Ajusta el tamaño de fuente para mejor visibilidad */
+  }
+
+  .user-table td {
+    font-size: 16px;
+    /* Ajusta el tamaño de la fuente en las filas */
+  }
+}
+
+/* Toast notification */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: fadeInOut 3s ease forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-toast {
+  background-color: #28a745;
+  /* Verde para éxito */
+}
+
+.error-toast {
+  background-color: #dc3545;
+  /* Rojo para error */
+}
+
+.delete-toast {
+  background-color: #e74c3c;
+  /* Rojo fuerte para eliminado */
+}
+
+.warning-toast {
+  background-color: #f39c12;
+  /* Naranja para advertencia */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

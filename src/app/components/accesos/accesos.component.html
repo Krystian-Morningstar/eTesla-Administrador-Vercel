@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador eTesla</title>
+  <link rel="stylesheet" href="accesos.component.css">
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <app-header></app-header>
+    <app-nav-bar></app-nav-bar>
+
+    <div class="form-table-container">
+      <div class="form-container">
+        <h2>Crear Cuenta de Usuario</h2>
+        <form #usuarioForm="ngForm" (ngSubmit)="addUsuario()">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" [(ngModel)]="newUsuario.nombre" name="nombre" required />
+          </div>
+
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" type="tel" [(ngModel)]="newUsuario.telefono" name="telefono" required />
+          </div>
+
+          <div class="form-group">
+            <label for="correo">Correo</label>
+            <input id="correo" type="email" [(ngModel)]="newUsuario.correo" name="correo" required />
+          </div>
+
+          <div class="form-group">
+            <label for="rol">Rol</label>
+            <select id="rol" [(ngModel)]="newUsuario.id_rol" name="id_rol" required>
+              <option value="">Seleccionar Rol</option>
+              <option *ngFor="let rol of roles" [value]="rol.id_rol">{{ rol.nombre_rol }}</option>
+            </select>
+            <label for="contrasena" class="mt-2">Contraseña</label>
+            <input id="contrasena" type="password" [(ngModel)]="newUsuario.contrasena" name="contrasena" required />
+          </div>
+
+          <div class="form-group">
+            <label for="sucursal">Sucursal</label>
+            <select id="sucursal" [(ngModel)]="newUsuario.id_sucursal" name="id_sucursal" required>
+              <option value="">Seleccionar Sucursal</option>
+              <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">{{ sucursal.nombre_sucursal }}</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            {{ editingUsuarioId ? 'Actualizar datos' : 'Crear cuenta' }}
+          </button>
+          <button *ngIf="editingUsuarioId" type="button" class="submit-btn" style="background-color:#f39c12; margin-top:8px;" (click)="cancelarEdicion()">Cancelar</button>
+        </form>
+
+        <!-- Toast Notification -->
+        <div class="toast" *ngIf="showToast" [ngClass]="{
+          'success-toast': toastType === 'success',
+          'error-toast': toastType === 'error',
+          'delete-toast': toastType === 'delete',
+          'warning-toast': toastType === 'warning'
+        }">
+          <span>{{ toastMessage }}</span>
+        </div>
+      </div>
+
+      <div class="list-container">
+        <h2>Lista de Vendedores</h2>
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Correo</th>
+              <th>Rol</th>
+              <th>Sucursal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios" [ngClass]="{'inactive-row': !usuario.activo}">
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.telefono }}</td>
+              <td>{{ usuario.correo }}</td>
+              <td>{{ getNombreRol(usuario.id_rol) }}</td>
+              <td>{{ getNombreSucursal(usuario.id_sucursal) }}</td>
+              <td>
+                <button class="action-btn edit-btn" (click)="editUsuario(usuario)">Editar</button>
+                <button *ngIf="usuario.activo" class="action-btn delete-btn" (click)="deleteUsuario(usuario)">Eliminar</button>
+                <button *ngIf="!usuario.activo" class="action-btn reactivate-btn" (click)="reactivarUsuario(usuario)">Reactivar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Toast Notification -->
+        <div class="toast" *ngIf="showToast" [ngClass]="{
+          'success-toast': toastType === 'success',
+          'error-toast': toastType === 'error',
+          'delete-toast': toastType === 'delete',
+          'warning-toast': toastType === 'warning'
+        }">
+          <span>{{ toastMessage }}</span>
+        </div>
+
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</body>
+
+</html>

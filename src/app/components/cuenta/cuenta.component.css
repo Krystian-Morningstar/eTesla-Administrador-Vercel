@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0; /* Eliminamos cualquier margen en el html */
+    padding: 0; /* Eliminamos cualquier padding en el html */
+    overflow-x: hidden; /* Evita desplazamiento horizontal accidental */
+  }
+  
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+  }
+
+  .account-container {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.section {
+  margin-bottom: 25px;
+}
+
+.section h3 {
+  font-size: 18px;
+  color: #057ecd;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #00215f;
+  padding-bottom: 5px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.info-item label {
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+}
+
+.info-item span {
+  color: #666;
+  flex: 2;
+  text-align: right;
+}
+
+.change-password-btn, .change-perfil-btn {
+  display: table-column;
+  margin-left: 6%;
+  width: 40%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.change-password-btn:hover {
+  background-color: #218838;
+}
+
+.change-perfil-btn:hover {
+  background-color: #218838;
+}

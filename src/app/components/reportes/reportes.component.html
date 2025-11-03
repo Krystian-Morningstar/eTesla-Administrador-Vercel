@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador eTesla</title>
+    <link rel="stylesheet" href="reportes.component.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <app-header></app-header>
+        <app-nav-bar></app-nav-bar>
+
+        <main class="reportes-container">
+            <h2>Dashboard Administrativo</h2>
+
+            <main class="dashboard-content">
+                <section class="summary">
+                    <div class="card">
+                        <h3>Total de cotizaciones</h3>
+                        <span id="total-cotizaciones">120</span>
+                    </div>
+
+                    <div class="card">
+                        <h3>Total Sucursal Veracruz</h3>
+                        <span id="sucursalVeracruz-total">70</span>
+                    </div>
+
+                    <div class="card">
+                        <h3>Total Sucursal Ciudad de Mexico</h3>
+                        <span id="sucursalCDMX-total">50</span>
+                    </div>
+                </section>
+                <section class="graficas">
+                    <div class="grid grid-cols-2 grid-rows-1 gap-4">
+                        <div>
+                            <canvas id="graficoGlobal"></canvas>
+                        </div>
+                        <div>
+                            <canvas id="graficoTendencia"></canvas>
+                        </div>
+                    </div>                    
+                </section>
+            </main>
+        </main>
+
+        <app-footer></app-footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0; /* Eliminamos cualquier margen en el html */
+    padding: 0; /* Eliminamos cualquier padding en el html */
+    overflow-x: hidden; /* Evita desplazamiento horizontal accidental */
+  }
+  
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f4f8;
+  }
+
+  .reportes-container {
+    padding: 1.5em;
+    flex-grow: 1;
+    overflow-y: auto; /* Habilita el scroll vertical */
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .summary {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .card {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #81BD01;
+  }
+
+  .card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+  }
+  
+  .card span {
+    font-size: 1.2rem;
+  }
+
+  .graficas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Tres columnas de igual ancho */
+    grid-gap: 20px; /* Espaciado entre columnas */
+  }
+  
+  .grid > div {
+    background-color: #f9f9f9; /* Fondo claro para visualización */
+    border: 1px solid #ddd; /* Borde opcional */
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px; /* Altura fija opcional */
+  }
+  
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+  
